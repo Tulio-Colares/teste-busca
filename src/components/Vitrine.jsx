@@ -1,11 +1,11 @@
 import React from 'react';
 import {suggestions} from '../data/data'
 
-const Vitrine = () => {
+const Vitrine = ({pesquisados}) => {
   return (
     <div>
-        {suggestions.map(suggest => (
-            <h4>{suggest.suggestion}</h4>
+        {pesquisados.map(item => (
+            <h4>{item.suggestion}</h4>
         ))}
     </div>
   )
