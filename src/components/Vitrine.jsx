@@ -4,8 +4,9 @@ import {suggestions} from '../data/data'
 const Vitrine = ({pesquisados}) => {
   return (
     <div>
+      <h3>Pesquisados Recentemente</h3>
         {pesquisados.map(item => (
-            <h4>{item.suggestion}</h4>
+            <h5>{item.suggestion}</h5>
         ))}
     </div>
   )

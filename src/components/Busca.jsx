@@ -8,37 +8,64 @@ const Busca = ({lista, setLista, pesquisados, setPesquisados}) => {
 
     const alterarTexto = (e) => {
         setTexto(e.target.value)
-        console.log(texto)
+
+        escondeLista()
     }
 
-    const adicionarNaLista = () => {
+    const adicionarTextoNaLista = () => {
         const id = lista.length + 1
-        setLista((lista) => [{ id: id, suggestion: texto}, ...lista])
+        //setLista((lista) => [{ id: id, suggestion: texto}, ...lista])
         setPesquisados((pesquisados) => [{id: id, suggestion: texto}, ...pesquisados])
         setTexto("")
+        setHidden(true)
+    }
+
+    const ClicaEnter = (event) => {
+        if (event.key === 'Enter'){
+            adicionarTextoNaLista()
+        }
+    }
+
+    const adicionarItemNaLista = (suggest) => {
+        setPesquisados((pesquisados) => [{id: suggest.id, suggestion: suggest.suggestion}, ...pesquisados])
+        console.log(suggest.suggestion)
+        setTexto("")
+        setHidden(true)
+    }
+
+    const escondeLista = () => {
+        if (texto.length >= 0 ){
+            setHidden(false)
+        }else{
+            setHidden(true)
+        }
     }
 
   return (
-    <div>
-        <button onClick={() => adicionarNaLista()}>Buscar</button>
+    <div style={{ border: '1px solid black'}}>
+        <button onClick={() => adicionarTextoNaLista()} >Buscar</button>
         <input 
             type='text' 
             placeholder='texto aqui' 
             name="itemDeBusca" 
-            onChange={(e) => setTexto(e.target.value)} 
+            onChange={(e) => alterarTexto(e)} 
+            onKeyUp={ClicaEnter}
             value={texto}>
         </input>
-        <button onClick={() => setHidden( s => !s)}>Lista</button>
+        <button onClick={() => setHidden(s => !s)}>Lista</button>
         <br/>
         <div
             name="itemDeBusca" 
             placeholder='Busca' 
-            //onChange={(suggest) => adicionarNosPesquisados(suggest)}
+            style={{height: "200px", width: "265px", border: '1px solid black' , overflow: "auto", margin: 'auto'}}
         >
-            <ul>{!hidden ? 
+            <ul style={{listStyle: "none"}}>{!hidden ? 
                 lista.map(suggest => (
-                    <li onClick={() => console.log('clicou')}>{suggest.suggestion}</li>
-                )) : null }
+                    <li 
+                        onClick={() => adicionarItemNaLista(suggest)} 
+                        style={{cursor: 'pointer'}}
+                    >{suggest.suggestion}</li>
+                )) : null }     
             </ul>
         </div>
         <br/>
