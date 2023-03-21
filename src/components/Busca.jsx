@@ -8,7 +8,6 @@ const Busca = ({lista, setLista, pesquisados, setPesquisados}) => {
 
     const alterarTexto = (e) => {
         setTexto(e.target.value)
-
         escondeLista()
     }
 
@@ -60,8 +59,8 @@ const Busca = ({lista, setLista, pesquisados, setPesquisados}) => {
             style={{height: "200px", width: "265px", border: '1px solid black' , overflow: "auto", margin: 'auto'}}
         >
             <ul style={{listStyle: "none"}}>{!hidden ? 
-                lista.map(suggest => (
-                    <li 
+                lista.filter((item) => item.suggestion.toLowerCase().includes(texto)).map(suggest => (
+                    <li
                         onClick={() => adicionarItemNaLista(suggest)} 
                         style={{cursor: 'pointer'}}
                     >{suggest.suggestion}</li>
