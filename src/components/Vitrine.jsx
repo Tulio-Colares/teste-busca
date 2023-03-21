@@ -6,7 +6,7 @@ const Vitrine = ({pesquisados}) => {
     <div>
       <h3>Pesquisados Recentemente</h3>
         {pesquisados.map(item => (
-            <h5>{item.suggestion}</h5>
+            <h5 key={item.id}>{item.suggestion}</h5>
         ))}
     </div>
   )

@@ -5,6 +5,7 @@ const Busca = ({lista, setLista, pesquisados, setPesquisados}) => {
     const [texto, setTexto] = useState('')
     const [hidden, setHidden] = useState(true)
 
+    console.log(texto)
 
     const alterarTexto = (e) => {
         setTexto(e.target.value)
@@ -33,10 +34,10 @@ const Busca = ({lista, setLista, pesquisados, setPesquisados}) => {
     }
 
     const escondeLista = () => {
-        if (texto.length >= 0 ){
-            setHidden(false)
-        }else{
+        if (texto.length == 0 ){
             setHidden(true)
+        }else{
+            setHidden(false)
         }
     }
 
@@ -48,7 +49,10 @@ const Busca = ({lista, setLista, pesquisados, setPesquisados}) => {
             placeholder='texto aqui' 
             name="itemDeBusca" 
             onChange={(e) => alterarTexto(e)} 
+            onFocus={() => setHidden(false)}
+            onBlur={() => setTimeout(() => setHidden(true), 100)}
             onKeyUp={ClicaEnter}
+            autoComplete="off"
             value={texto}>
         </input>
         <button onClick={() => setHidden(s => !s)}>Lista</button>
@@ -56,13 +60,14 @@ const Busca = ({lista, setLista, pesquisados, setPesquisados}) => {
         <div
             name="itemDeBusca" 
             placeholder='Busca' 
-            style={{height: "200px", width: "265px", border: '1px solid black' , overflow: "auto", margin: 'auto'}}
+            style={{height: "13rem", width: "17.4rem", border: '1px solid black' , overflow: "auto", margin: 'auto'}}
         >
             <ul style={{listStyle: "none"}}>{!hidden ? 
                 lista.filter((item) => item.suggestion.toLowerCase().includes(texto)).map(suggest => (
                     <li
                         onClick={() => adicionarItemNaLista(suggest)} 
                         style={{cursor: 'pointer'}}
+                        key={suggest.id}
                     >{suggest.suggestion}</li>
                 )) : null }     
             </ul>
