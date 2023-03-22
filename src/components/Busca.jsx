@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { PesquisaContext } from '../context/pesquisaContext'
 
-
-const Busca = ({lista, setLista, pesquisados, setPesquisados, isHover, setIsHover}) => {
+const Busca = () => {
+    const { lista, pesquisados, isHover, setPesquisados, setIsHover } = useContext(PesquisaContext)
     const [texto, setTexto] = useState('')
     const [hidden, setHidden] = useState(true)
 
