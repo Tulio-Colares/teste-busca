@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 
-const Busca = ({lista, setLista, pesquisados, setPesquisados}) => {
+const Busca = ({lista, setLista, pesquisados, setPesquisados, isHover, setIsHover}) => {
     const [texto, setTexto] = useState('')
     const [hidden, setHidden] = useState(true)
 
@@ -11,6 +11,8 @@ const Busca = ({lista, setLista, pesquisados, setPesquisados}) => {
         setTexto(e.target.value)
         escondeLista()
     }
+
+    //Faz alterações na lista original de suggestions
 
     const adicionarTextoNaLista = () => {
         const id = lista.length + 1
@@ -26,6 +28,7 @@ const Busca = ({lista, setLista, pesquisados, setPesquisados}) => {
         }
     }
 
+    //Faz alterações na lista secundária, de itens já pesquisados anteriormente, que inicia vazia
     const adicionarItemNaLista = (suggest) => {
         setPesquisados((pesquisados) => [{id: suggest.id, suggestion: suggest.suggestion}, ...pesquisados])
         console.log(suggest.suggestion)
@@ -41,8 +44,22 @@ const Busca = ({lista, setLista, pesquisados, setPesquisados}) => {
         }
     }
 
+    const handleMouseEnter = () => {
+        setIsHover(true)
+    }
+
+    const handleMouseLeave = () => {
+        setIsHover(false)
+    }
+
+    const liStyle = {
+        cursor: 'pointer',
+        backgroundColor: isHover ? 'white' : null,
+        border: '1px solid black'
+    }
+
   return (
-    <div style={{ border: '1px solid black'}}>
+    <div>
         <button onClick={() => adicionarTextoNaLista()} >Buscar</button>
         <input 
             type='text' 
@@ -60,16 +77,18 @@ const Busca = ({lista, setLista, pesquisados, setPesquisados}) => {
         <div
             name="itemDeBusca" 
             placeholder='Busca' 
-            style={{height: "13rem", width: "17.4rem", border: '1px solid black' , overflow: "auto", margin: 'auto'}}
+            style={{height: "13rem", width: "17.4rem", overflow: "auto", margin: 'auto'}}
         >
             <ul style={{listStyle: "none"}}>{!hidden ? 
                 lista.filter((item) => item.suggestion.toLowerCase().includes(texto)).map(suggest => (
                     <li
                         onClick={() => adicionarItemNaLista(suggest)} 
-                        style={{cursor: 'pointer'}}
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
                         key={suggest.id}
+                        style={liStyle}
                     >{suggest.suggestion}</li>
-                )) : null }     
+                )) : null }  
             </ul>
         </div>
         <br/>
