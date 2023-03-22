@@ -73,7 +73,7 @@ const Busca = () => {
             autoComplete="off"
             value={texto}>
         </input>
-        <button onClick={() => setHidden(s => !s)}>Lista</button>
+        <button onClick={() => setHidden(s => !s)}>Mostrar Lista</button>
         <br/>
         <div
             name="itemDeBusca" 

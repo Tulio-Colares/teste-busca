@@ -2,14 +2,11 @@ import './App.css';
 import React, {useState} from 'react'
 import Busca from './components/Busca';
 import Vitrine from './components/Vitrine';
-import { suggestions } from './data/data'
+
 import background from './images/background.jpg'
-import { PesquisaContext } from './context/pesquisaContext';
+import { PesquisaProvider } from './context/pesquisaContext';
 
 function App() {
-  const [lista, setLista] = useState(suggestions)
-  const [pesquisados, setPesquisados] = useState([])
-  const [isHover, setIsHover] = useState(false)
 
   const estilo = {
     backgroundImage: `url(${background})`,
@@ -20,10 +17,10 @@ function App() {
 
   return (
     <div className="App" style={estilo}>
-        <PesquisaContext.Provider value={{lista, setLista, pesquisados, setPesquisados, isHover, setIsHover }}>
-          <Busca/>
-          <Vitrine/>
-      </PesquisaContext.Provider>
+      <PesquisaProvider>
+        <Busca/>
+        <Vitrine/>
+      </PesquisaProvider>
     </div>
   );
 }
