@@ -6,17 +6,14 @@ const Busca = () => {
     const [texto, setTexto] = useState('')
     const [hidden, setHidden] = useState(true)
 
-    console.log(texto)
-
     const alterarTexto = (e) => {
         setTexto(e.target.value)
         escondeLista()
     }
 
-    //Faz alterações na lista original de suggestions
+    //Adiciona o texto escrito pelo usuário na lista de itens pesquisados anteriormente, que inicia vazia
     const adicionarTextoNaLista = () => {
         const id = lista.length + 1
-        //setLista((lista) => [{ id: id, suggestion: texto}, ...lista])
         setPesquisados((pesquisados) => [{id: id, suggestion: texto}, ...pesquisados])
         setTexto("")
         setHidden(true)
@@ -28,7 +25,8 @@ const Busca = () => {
         }
     }
 
-    //Faz alterações na lista secundária, de itens já pesquisados anteriormente, que inicia vazia
+    //Para itens da lista dropdown que, ao serem clicados, são copiados para a lista de itens já 
+    //pesquisados anteriormente, que inicia vazia
     const adicionarItemNaLista = (suggest) => {
         setPesquisados((pesquisados) => [{id: suggest.id, suggestion: suggest.suggestion}, ...pesquisados])
         console.log(suggest.suggestion)
@@ -44,14 +42,6 @@ const Busca = () => {
         }
     }
 
-    const handleMouseEnter = () => {
-        setIsHover(true)
-    }
-
-    const handleMouseLeave = () => {
-        setIsHover(false)
-    }
-
     const liStyle = {
         cursor: 'pointer',
         backgroundColor: isHover ? 'white' : null,
@@ -62,7 +52,15 @@ const Busca = () => {
         height: '2rem', 
         borderRadius: '5px',
         width: '20rem',
-        fontSize: '1.5rem'
+        fontSize: '1.5rem',
+        border: 0
+    }
+
+    const estiloLista = {
+        height: "13rem", 
+        width: "17.4rem", 
+        overflow: "auto", 
+        margin: 'auto', 
     }
 
   return (
@@ -81,17 +79,14 @@ const Busca = () => {
             style={inputStyle}
             >
         </input>
-        <div
-            name="itemDeBusca" 
-            placeholder='Busca' 
-            style={{height: "13rem", width: "17.4rem", overflow: "auto", margin: 'auto'}}
+        <div style={estiloLista}
         >
-            <ul style={{listStyle: "none"}}>{!hidden ? 
+            <ul style={{listStyle: "none", padding: 0}}>{!hidden ? 
                 lista.filter((item) => item.suggestion.toLowerCase().includes(texto)).map(suggest => (
                     <li
                         onClick={() => adicionarItemNaLista(suggest)} 
-                        onMouseEnter={handleMouseEnter}
-                        onMouseLeave={handleMouseLeave}
+                        onMouseEnter={() => setIsHover(true)}
+                        onMouseLeave={() => setIsHover(false)}
                         key={suggest.id}
                         style={liStyle}
                     >{suggest.suggestion}</li>
