@@ -14,7 +14,6 @@ const Busca = () => {
     }
 
     //Faz alterações na lista original de suggestions
-
     const adicionarTextoNaLista = () => {
         const id = lista.length + 1
         //setLista((lista) => [{ id: id, suggestion: texto}, ...lista])
@@ -38,7 +37,7 @@ const Busca = () => {
     }
 
     const escondeLista = () => {
-        if (texto.length == 0 ){
+        if (texto.length === 0 ){
             setHidden(true)
         }else{
             setHidden(false)
@@ -59,22 +58,29 @@ const Busca = () => {
         border: '1px solid black'
     }
 
+    const inputStyle = {
+        height: '2rem', 
+        borderRadius: '5px',
+        width: '20rem',
+        fontSize: '1.5rem'
+    }
+
   return (
     <div>
-        <button onClick={() => adicionarTextoNaLista()} >Buscar</button>
+        <br/>
         <input 
             type='text' 
-            placeholder='texto aqui' 
+            placeholder='Busque aqui...' 
             name="itemDeBusca" 
             onChange={(e) => alterarTexto(e)} 
             onFocus={() => setHidden(false)}
             onBlur={() => setTimeout(() => setHidden(true), 100)}
-            onKeyUp={ClicaEnter}
+            onKeyDown={ClicaEnter}
             autoComplete="off"
-            value={texto}>
+            value={texto}
+            style={inputStyle}
+            >
         </input>
-        <button onClick={() => setHidden(s => !s)}>Mostrar Lista</button>
-        <br/>
         <div
             name="itemDeBusca" 
             placeholder='Busca' 

@@ -5,9 +5,9 @@ const Vitrine = () => {
   const {pesquisados} = useContext(PesquisaContext)
   return (
     <div>
-      <h3>Pesquisados Recentemente</h3>
+      <h2>Pesquisados Recentemente</h2>
         {pesquisados.map(pesquisado => (
-            <h5 key={pesquisado.id}>{pesquisado.suggestion}</h5>
+            <p key={pesquisado.id}>{pesquisado.suggestion}</p>
         ))}
     </div>
   )
