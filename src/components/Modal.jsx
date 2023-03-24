@@ -19,7 +19,7 @@ const Modal = () => {
         <div className='body'></div>
         <div className='footer'>
           <button onClick={() => setOpenModal(false)}>Cancelar</button>
-          <button onClick={clearHistory()}>Apagar!</button>
+          <button onClick={clearHistory}>Apagar!</button>
         </div>
       </div>
     </div>

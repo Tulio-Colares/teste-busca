@@ -14,7 +14,7 @@ const Busca = () => {
     //Adiciona o texto escrito pelo usuário na lista de itens pesquisados anteriormente, que inicia vazia
     const adicionarTextoNaLista = () => {
         const id = lista.length + 1
-        setPesquisados((pesquisados) => [{id: id, suggestion: texto}, ...pesquisados])
+        setPesquisados((pesquisados) => [ ...pesquisados, {id: id, suggestion: texto}])
         setTexto("")
         setHidden(true)
     }
@@ -28,7 +28,7 @@ const Busca = () => {
     //Para itens da lista dropdown que, ao serem clicados, são copiados para a lista de itens já 
     //pesquisados anteriormente, que inicia vazia
     const adicionarItemNaLista = (suggest) => {
-        setPesquisados((pesquisados) => [{id: suggest.id, suggestion: suggest.suggestion}, ...pesquisados])
+        setPesquisados((pesquisados) => [...pesquisados, {id: suggest.id, suggestion: suggest.suggestion}])
         console.log(suggest.suggestion)
         setTexto("")
         setHidden(true)
